@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>Sürpriz</title>
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: black;
+    width: 100%;
+    height: 100%;
+  }
+  .text {
+    position: fixed;
+    font-weight: bold;
+    color: red;
+    user-select: none;
+    white-space: nowrap;
+    z-index: 9999;
+    pointer-events: none;
+    animation: float linear infinite;
+  }
+  @keyframes float {
+    0% { transform: translateY(100vh); }
+    100% { transform: translateY(-50px); }
+  }
+</style>
+</head>
+<body>
+<script>
+const mesaj = "SENİ SEVİYORUM";
+const width = document.documentElement.clientWidth;
+const height = document.documentElement.clientHeight;
+
+function createText() {
+  const span = document.createElement('div');
+  span.className = 'text';
+  span.innerText = mesaj;
+  
+  // Boyutu mobil uyumlu ayarla
+  const size = Math.random() * 8 + 5; // 5vw - 13vw
+  span.style.fontSize = size + 'vw';
+  
+  // Rastgele pozisyon
+  span.style.left = Math.random() * (width - size*10) + 'px';
+  
+  // Animasyon süresi rastgele (3-8 saniye)
+  span.style.animationDuration = (Math.random() * 5 + 3) + 's';
+  
+  document.body.appendChild(span);
+  
+  // Belirli süre sonra sil
+  setTimeout(() => {
+    span.remove();
+  }, 8000);
+}
+
+// Başlangıçta çoklu yazı oluştur
+for(let i=0; i<30; i++){
+  setTimeout(createText, i*200);
+}
+
+// Sürekli oluştur
+setInterval(createText, 300);
+</script>
+</body>
+</html>
